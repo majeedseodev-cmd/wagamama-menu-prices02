@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog | wagamamamenu.me</title>
+  <meta name="description" content="Browse the wagamamamenu.me article archive with category filters, search, and pagination for UK-focused menu guidance.">
+  <meta name="geo.region" content="GB">
+  <meta name="geo.placename" content="United Kingdom">
+  <link rel="canonical" href="https://wagamamamenue-netlify.app/blog.html">
+  <link rel="alternate" hreflang="en-gb" href="https://wagamamamenue-netlify.app/blog.html">
+  <link rel="stylesheet" href="style.css">
+  <script src="theme-nav.js" defer></script>
+</head>
+<body>
+  <header>
+    <div class="container topbar">
+      <a class="logo" href="index.html">wagamamamenu.me</a>
+      <div class="nav-actions">
+        <button class="theme-toggle-btn" type="button" aria-label="Toggle theme">
+          <span class="theme-toggle-text">Theme</span>
+        </button>
+        <button class="nav-toggle-btn" type="button" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      <nav aria-label="Primary navigation">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about-us.html">About Us</a></li>
+          <li><a href="blog.html" class="active">Blog</a></li>
+          <li><a href="author.html">Author</a></li>
+          <li><a href="contact-us.html">Contact Us</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="panel">
+      <p class="meta">Updated: 1 August 2026 · Written by Eleanor Finch</p>
+      <h1>Blog Archive</h1>
+      <p>Browse practical menu guidance, strategy-led ordering advice, and UK dining notes from our editorial team.</p>
+    </article>
+
+    <section class="panel" aria-label="Blog controls">
+      <h2>Filter and Search</h2>
+      <div class="grid grid-2">
+        <div>
+          <p class="meta">Category filters</p>
+          <button class="btn filter-btn" data-filter="all">All</button>
+          <button class="btn filter-btn" data-filter="Food Strategy">Food Strategy</button>
+          <button class="btn filter-btn" data-filter="Family Dining">Family Dining</button>
+          <button class="btn filter-btn" data-filter="Quick Decisions">Quick Decisions</button>
+        </div>
+        <div>
+          <label for="post-search"><strong>Search articles</strong></label>
+          <input id="post-search" type="search" placeholder="Search by title or excerpt">
+        </div>
+      </div>
+    </section>
+
+    <section class="grid grid-3" id="post-grid" aria-label="Post listings"></section>
+    <nav class="pagination" id="pagination" aria-label="Pagination controls"></nav>
+
+    <section class="author-bio" aria-label="Author biography">
+      <div class="avatar" aria-hidden="true"></div>
+      <div>
+        <h2>About the Author</h2>
+        <p><strong>Author Name:</strong> Eleanor Finch</p>
+        <p><strong>Title/Role:</strong> UK Food Menu Analyst</p>
+        <p><strong>Area of Expertise:</strong> Casual dining menus, nutritional transparency, and value-focused meal planning in the United Kingdom.</p>
+        <p><strong>Bio:</strong> Eleanor publishes concise, usable guidance that helps readers move from uncertainty to confident ordering choices.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 wagamamamenu.me. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="about-us.html">About Us</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact-us.html">Contact Us</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="author.html">Author</a>
+      </div>
+    </div>
+  </footer>
+
+  <!--
+  BLOG PUBLISHING INSTRUCTIONS
+  1. Add each new article as an HTML file in /blog/
+  2. Use filename format: YYYY-MM-DD-post-title.html
+  3. Required metadata in each blog file:
+     - <title>
+     - <meta name="description">
+     - <meta name="author" content="Eleanor Finch">
+     - <meta name="publish-date" content="YYYY-MM-DD">
+     - <meta name="category" content="Category Name">
+  4. Auto-fetch behaviour:
+     - The script requests /blog/ and reads links ending in .html
+     - It extracts date from filename and sorts newest first
+     - If directory listing is disabled, maintain a small fallback list below
+  -->
+
+  <script>
+    const POSTS_PER_PAGE = 9;
+    let activeCategory = "all";
+    let searchTerm = "";
+    let currentPage = 1;
+    let allPosts = [];
+
+    const fallbackPosts = [
+      {
+        file: "2026-07-28-ramen-side-dishes-guide.html",
+        title: "Ramen and Side Dishes: A Smarter Pairing Guide",
+        excerpt: "Learn a clear approach to pairing one ramen dish with one side so the table feels balanced, flavourful, and cost-aware for UK diners.",
+        author: "Eleanor Finch",
+        date: "28 July 2026",
+        category: "Food Strategy",
+        image: "https://images.unsplash.com/photo-1557872943-16a5ac26437e?auto=format&fit=crop&w=640&q=70"
+      },
+      {
+        file: "2026-07-20-family-ordering-plan.html",
+        title: "Family Ordering Plan for Busy Evenings",
+        excerpt: "Build a family-friendly order with mild and bold options, smart side sharing, and easy budgeting principles for busy weeknights.",
+        author: "Eleanor Finch",
+        date: "20 July 2026",
+        category: "Family Dining",
+        image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=640&q=70"
+      },
+      {
+        file: "2026-06-30-noodle-and-rice-comparison.html",
+        title: "Noodle vs Rice Bowls: Which Fits Your Day?",
+        excerpt: "Compare texture, pace, and fullness to choose between noodle bowls and rice bowls for lunch breaks, meetings, or relaxed evenings.",
+        author: "Eleanor Finch",
+        date: "30 June 2026",
+        category: "Quick Decisions",
+        image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=640&q=70"
+      }
+    ];
+
+    async function scanBlogFolderPlaceholder() {
+      try {
+        const response = await fetch("/blog/");
+        const html = await response.text();
+        const doc = new DOMParser().parseFromString(html, "text/html");
+        const links = [...doc.querySelectorAll("a")]
+          .map((a) => a.getAttribute("href"))
+          .filter((href) => href && /^\d{4}-\d{2}-\d{2}-.+\.html$/.test(href));
+
+        if (!links.length) return fallbackPosts;
+
+        return links.map((file) => {
+          const datePart = file.slice(0, 10);
+          const [year, month, day] = datePart.split("-");
+          const parsedDate = new Date(`${year}-${month}-${day}T12:00:00`);
+          const humanDate = parsedDate.toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+          });
+          const titleFromSlug = file
+            .replace(/^\d{4}-\d{2}-\d{2}-/, "")
+            .replace(".html", "")
+            .replace(/-/g, " ")
+            .replace(/\b\w/g, (c) => c.toUpperCase());
+          return {
+            file,
+            title: titleFromSlug,
+            excerpt: "Open the article to read the full post summary and practical UK-focused dining guidance.",
+            author: "Eleanor Finch",
+            date: humanDate,
+            category: "Food Strategy",
+            image: "https://images.unsplash.com/photo-1565299507177-b0ac66763828?auto=format&fit=crop&w=640&q=70"
+          };
+        });
+      } catch (error) {
+        return fallbackPosts;
+      }
+    }
+
+    function dateKeyFromFile(file) {
+      const match = file.match(/^(\d{4}-\d{2}-\d{2})-/);
+      return match ? match[1] : "1900-01-01";
+    }
+
+    function sortedPosts(posts) {
+      return [...posts].sort((a, b) => dateKeyFromFile(b.file).localeCompare(dateKeyFromFile(a.file)));
+    }
+
+    function filteredPosts() {
+      return sortedPosts(allPosts).filter((post) => {
+        const categoryMatch = activeCategory === "all" || post.category === activeCategory;
+        const query = searchTerm.trim().toLowerCase();
+        const textMatch = !query || post.title.toLowerCase().includes(query) || post.excerpt.toLowerCase().includes(query);
+        return categoryMatch && textMatch;
+      });
+    }
+
+    function renderCards(posts) {
+      const grid = document.getElementById("post-grid");
+      const start = (currentPage - 1) * POSTS_PER_PAGE;
+      const pageItems = posts.slice(start, start + POSTS_PER_PAGE);
+      grid.innerHTML = pageItems.map((post) => `
+        <article class="post-card">
+          <img src="${post.image}" alt="${post.title}" loading="lazy">
+          <h3><a href="blog/${post.file}">${post.title}</a></h3>
+          <p>${post.excerpt.slice(0, 150)}</p>
+          <p class="meta">${post.author} · ${post.date}</p>
+          <span class="tag">${post.category}</span>
+        </article>
+      `).join("");
+      if (!pageItems.length) {
+        grid.innerHTML = "<article class='post-card'><p>No posts match this filter yet.</p></article>";
+      }
+    }
+
+    function renderPagination(posts) {
+      const totalPages = Math.max(1, Math.ceil(posts.length / POSTS_PER_PAGE));
+      if (currentPage > totalPages) currentPage = totalPages;
+      const nav = document.getElementById("pagination");
+      let pageButtons = "";
+      for (let i = 1; i <= totalPages; i += 1) {
+        pageButtons += `<button ${i === currentPage ? "disabled" : ""} data-page="${i}">${i}</button>`;
+      }
+      nav.innerHTML = `
+        <button ${currentPage === 1 ? "disabled" : ""} data-page="${currentPage - 1}">Previous</button>
+        ${pageButtons}
+        <button ${currentPage === totalPages ? "disabled" : ""} data-page="${currentPage + 1}">Next</button>
+      `;
+      nav.querySelectorAll("button[data-page]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          currentPage = Number(btn.dataset.page);
+          refresh();
+        });
+      });
+    }
+
+    function refresh() {
+      const posts = filteredPosts();
+      renderCards(posts);
+      renderPagination(posts);
+    }
+
+    document.querySelectorAll(".filter-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        activeCategory = btn.dataset.filter;
+        currentPage = 1;
+        refresh();
+      });
+    });
+
+    document.getElementById("post-search").addEventListener("input", (e) => {
+      searchTerm = e.target.value;
+      currentPage = 1;
+      refresh();
+    });
+
+    (async function init() {
+      allPosts = await scanBlogFolderPlaceholder();
+      refresh();
+    })();
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Eleanor Finch",
+    "jobTitle": "UK Food Menu Analyst",
+    "description": "Specialist in UK casual dining menu analysis and practical meal planning."
+  }
+  </script>
+</body>
+</html>
